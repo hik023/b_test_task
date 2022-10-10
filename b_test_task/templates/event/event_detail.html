@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="container py-5 ">
+        <h4>{{event.title}}</h4>
+        <br>
+        <p>{{event.description | safe}}</p>
+        </br>
+        {% if on_event %}
+            <div>
+                <p>Вы зарегистрированы на это событие</p>
+            </div>
+        {% else %}
+            <form method="post" action="{% url 'event:event_register' %}">
+                {% csrf_token %}
+                <input type="hidden" name="event" value="{{event.id}}">
+                <input type="hidden" name="user" value="{{user.id}}">
+                <button type="submit" class="btn btn-outline-success">Зарегистрироваться</button>
+            </form>
+        {% endif %}
+        <hr>
+        <p class="text-muted">Мероприятие состоится {{event.start_dt | date:"d/m/Y"}} в {{event.start_dt | date:"H:i"}}</p>
+    </div>
+{% endblock %}

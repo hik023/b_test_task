@@ -1,0 +1,70 @@
+{% extends "index.html" %}
+
+{% block content_auth %} 
+    <div class="container py-5 h-100 d-flex align-items-center justify-content-center">
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="usernameInput" class="form-label">{{register_form.username.label_tag}}</label>
+                {% if register_form.username.errors %}
+                <input type="text" name="username" class="form-control is-invalid" id="usernameInput" aria-describedby="usernameHelp" required>
+                <div id="usernameHelp" class="invalid-feedback">
+                    {{register_form.username.errors}}
+                </div>
+                {% else %}
+                <input type="text" name="username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                <div id="usernameHelp" class="form-text">{{register_form.username.help_text}}</div>
+                {% endif %}         
+            </div>
+            <div class="mb-3">
+                <label for="first_nameInput" class="form-label">Name:</label>
+                {% if register_form.first_name.errors %}
+                <input type="text" name="first_name" class="form-control is-invalid" id="first_nameInput" aria-describedby="first_nameHelp" required>
+                <div id="first_nameHelp" class="invalid-feedback">
+                    {{register_form.first_name.errors}}
+                </div>
+                {% else %}
+                <input type="text" name="first_name" class="form-control" id="first_nameInput" aria-describedby="first_nameHelp">
+                <div id="first_nameHelp" class="form-text">{{register_form.first_name.help_text}}</div>
+                {% endif %}         
+            </div>
+            <div class="mb-3">
+                <label for="emailInput" class="form-label">{{register_form.email.label_tag}}</label>
+                {% if register_form.email.errors %}
+                <input type="email" name="email" class="form-control is-invalid" id="emailInput" aria-describedby="emailHelp" required>
+                <div id="emailHelp" class="invalid-feedback">
+                    {{register_form.email.errors}}
+                </div>
+                {% else %}
+                <input type="email" name="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">{{register_form.email.help_text}}</div>
+                {% endif %}  
+            </div>
+            <div class="mb-3">
+                <label for="password1Input" class="form-label">{{register_form.password1.label_tag}}</label>
+                {% if register_form.password1.errors %}
+                <input type="password" name="password1" class="form-control is-invalid" id="password1Input" aria-describedby="password1Help" required>
+                <div id="password1Help" class="invalid-feedback">
+                    {{register_form.password1.errors}}
+                </div>
+                {% else %}
+                <input type="password" name="password1" class="form-control" id="password1Input" aria-describedby="password1Help">
+                <div id="password1Help" class="form-text">{{register_form.password1.help_text}}</div>
+                {% endif %}  
+            </div>
+            <div class="mb-3">
+                <label for="password2Input" class="form-label">{{register_form.password2.label_tag}}</label>
+                {% if register_form.password2.errors %}
+                <input type="password" name="password2" class="form-control is-invalid" id="password2Input" aria-describedby="password2Help" required>
+                <div id="usernameHelp" class="invalid-feedback">
+                    {{register_form.password2.errors}}
+                </div>
+                {% else %}
+                <input type="password" name="password2" class="form-control" id="password2Input" aria-describedby="password2Help">
+                <div id="password2Help" class="form-text">{{register_form.password2.help_text}}</div>
+                {% endif %}  
+            </div>
+            <button type="submit" class="btn btn-outline-success">Register</button>
+        </form>
+    </div>
+{% endblock %}

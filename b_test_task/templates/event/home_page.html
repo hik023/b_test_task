@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block content %}
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-dark" aria-current="true">Данные об аккаунте</li>
+    <li class="list-group-item">
+        <table class="table">
+            <tbody>
+              <tr>
+                <td>Username</td>
+                <td>{{user.username}}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>{{user.first_name}}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{user.email}}</td>
+              </tr>
+            </tbody>
+        </table>
+    </li>
+  </ul>
+{% endblock %}

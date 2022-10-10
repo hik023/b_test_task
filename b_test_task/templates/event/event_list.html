@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="">
+        {% for e in events %}
+            <div class="card" style="margin: 10px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{e.title}}</h5>
+                    <p class="card-text">{{e.description | slice:':100'}}...</p>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text text-end"><small class="text-muted">Начало: {{e.start_dt | date:"d/m/Y H:i " }}</small></p>
+                    <a href="{% url 'event:event_detail' event_id=e.id %}" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true">Подробнее</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block content_auth %}
+    <div class="container py-5 h-100 d-flex align-items-center justify-content-center">
+        
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% if error %}
+                <p>{{error}}</p>
+            {% endif %}
+            <div class="mb-3">
+                <label for="usernameInput" class="form-label">{{form.username.label_tag}}</label>
+                <input type="text" name="username" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                <div id="usernameHelp" class="form-text">{{form.username.help_text}}</div>
+            </div>
+            <div class="mb-3">
+                <label for="passwordInput" class="form-label">{{form.password.label_tag}}</label>
+                <input type="password" name="password" class="form-control" id="passwordInput" aria-describedby="passwordHelp">
+                <div id="passwordHelp" class="form-text">{{form.password.help_text}}</div>
+            </div>
+            <input type="submit" class="btn btn-outline-primary" value="Login">
+            <a href="{% url 'register' %}" class="btn btn-outline-secondary" tabindex="-1" role="button" aria-disabled="true">Register</a>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+    </div>
+{% endblock %}
