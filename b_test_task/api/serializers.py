@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import QuerySet
 
 from rest_framework import serializers
 
@@ -13,11 +14,11 @@ class EventListSerializer(serializers.HyperlinkedModelSerializer):
     link = serializers.SerializerMethodField()
     started_at = serializers.CharField(source='start_dt')
 
-    def get_is_somebody_register(self, obj):
+    def get_is_somebody_register(self, obj: Event) -> bool:
         '''Returns True if somebody registered on event'''
         return EventRegistration.objects.filter(event=obj).exists()
 
-    def get_link(self, obj):
+    def get_link(self, obj: Event) -> str:
         '''\
         Imitate HyperlinkedRelatedField, because no idea why it not works here 
         \n :(
@@ -45,7 +46,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
     participants = serializers.SerializerMethodField()
     started_at = serializers.CharField(source='start_dt')
 
-    def get_participants(self, obj):
+    def get_participants(self, obj: Event) -> dict:
         '''Returns participants on event'''
         users_list = EventRegistration.objects.filter(
             event=obj).values_list('user', flat=True)

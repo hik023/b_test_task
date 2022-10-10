@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse
 
 from event.utils.event_helpers import (
     get_active_events,
@@ -10,7 +12,8 @@ from event.utils.event_helpers import (
 from event.forms import EventRegistrationForm
 
 
-def main_page(request):
+def main_page(request: HttpRequest) -> HttpResponse:
+    print(request)
     if request.user.is_authenticated:
         return render(request, 'event/home_page.html', context={})
     else: 
@@ -18,7 +21,7 @@ def main_page(request):
 
 
 @login_required
-def event_list(request):
+def event_list(request: HttpRequest) -> HttpResponse:
     data = {}
     events = get_active_events()
     data['events'] = events
@@ -26,7 +29,7 @@ def event_list(request):
 
 
 @login_required
-def event_detail(request, event_id):
+def event_detail(request: HttpRequest, event_id: int) -> HttpResponse:
     data = {}
     data['event'] = get_event_by_id(event_id)
     data['on_event'] = get_is_user_on_event(event_id, request.user.id)
@@ -35,7 +38,7 @@ def event_detail(request, event_id):
 
 @login_required
 @require_http_methods(["POST"])
-def register_on_event(request):
+def register_on_event(request: HttpRequest) -> HttpResponse:
     if get_is_user_on_event(
         request.POST.get('event'), request.POST.get('user')
         ):

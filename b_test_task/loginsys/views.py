@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse
 
 from .forms import RegisterForm, LoginForm
 
 
-def register_view(request):
+def register_view(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
         return redirect('client:home')
     if request.method == 'GET':
@@ -22,7 +23,7 @@ def register_view(request):
         {'register_form':form})
 
 
-def login_view(request):
+def login_view(request: HttpRequest) -> HttpResponse:
     data = {}
     if request.method == 'GET':
         form = LoginForm()
@@ -42,6 +43,6 @@ def login_view(request):
 
 
 @login_required
-def logout_view(request):
+def logout_view(request: HttpRequest) -> HttpResponse:
     logout(request)
     return redirect('event:home')
