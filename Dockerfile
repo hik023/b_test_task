@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 RUN apt update -y && apt upgrade -y
-RUN apt-get install build-essential python3-dev python-dev gcc -y
+RUN apt-get install build-essential python3 gcc -y
 COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 COPY . /app/
@@ -13,3 +13,4 @@ RUN cd /app/
 COPY docker-entrypoint.sh /app/
 RUN ["chmod", "+x", "/app/docker-entrypoint.sh"]
 # ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
+WORKDIR /app/b_test_task

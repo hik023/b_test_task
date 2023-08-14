@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
    
 services:
   db:
@@ -7,9 +7,10 @@ services:
       - .env
   web:
     build: .
-    command: python b_test_task/manage.py runserver 0.0.0.0:8000
+    command: gunicorn --bind 0.0.0.0:8000 b_test_task.wsgi:application
     volumes:
       - .:/app
+      - ./static:/app/b_test_task/static
     ports:
       - "8000:8000"
     env_file:
